@@ -7,7 +7,7 @@ export async function eliminarAlumno(id: number): Promise<APIResult<void>> {
     const response = await fetch(`${baseURL}/api/alumnos/${id}`, {
         method: 'DELETE',
     });
-    if (response.ok) {  
+    if (response.ok) {
         return {ok: true};
     }
     const error: APIError = await response.json();
