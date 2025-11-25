@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Listado de alumnos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-100 text-slate-800 flex flex-col">
+
+<header class="bg-white border-b border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <div
+                    class="h-8 w-8 rounded-lg bg-sky-500 flex items-center justify-center text-white text-sm font-semibold"
+            >
+                DI
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-slate-900">
+                    Panel de alumnado
+                </p>
+                <p class="text-xs text-slate-500">
+                    Ciclos Formativos · Informática
+                </p>
+            </div>
+        </div>
+        <p class="text-xs text-slate-500">
+            Módulo: Desarrollo de Interfaces
+        </p>
+    </div>
+</header>
+
+
+<main class="flex-1">
+    <div class="max-w-5xl mx-auto px-4 py-8">
+
+        <section class="mb-6">
+            <h1 class="text-2xl font-semibold tracking-tight text-slate-900">
+                Listado de alumnos
+            </h1>
+            <p class="text-sm text-slate-500 mt-1">
+                Selecciona el criterio de ordenación en el desplegable superior.
+            </p>
+        </section>
+
+
+        <section
+                class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+        >
+            <div>
+                <h2 class="text-sm font-medium text-slate-700">
+                    Ordenar resultados
+                </h2>
+                <p class="text-xs text-slate-500">
+                    Campo y modo de ordenación en una sola lista.
+                </p>
+            </div>
+
+
+            <div class="w-full sm:w-72">
+                <label
+                        for="order-select"
+                        class="block text-xs font-medium text-slate-600 mb-1"
+                >
+                    Ordenar por
+                </label>
+                <select
+                        id="order-select"
+                        name="order"
+                        class="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                    <option value="alumno-asc">Apellido (A → Z)</option>
+                    <option value="alumno-desc">Apellido (Z → A)</option>
+                    <option value="grupo-asc">Grupo (A → Z)</option>
+                    <option value="grupo-desc">Grupo (Z → A)</option>
+                    <option value="edad-asc">Edad (menor → mayor)</option>
+                    <option value="edad-desc">Edad (mayor → menor)</option>
+                    <option value="estado-asc">Estado (Activado → Desactivado)</option>
+                    <option value="estado-desc">Estado (Desactivado → Activado)</option>
+                </select>
+            </div>
+        </section>
+
+
+        <section class="bg-white rounded-xl shadow-sm border border-slate-200">
+            <div
+                    class="border-b border-slate-200 px-4 py-3 flex items-center justify-between"
+            >
+                <h2 class="text-sm font-semibold text-slate-800">
+                    Alumnos matriculados
+                </h2>
+                <span class="text-xs text-slate-500">
+                    Total: <span id="total-alumnos">6</span>
+                </span>
+            </div>
+
+            <!-- BLOQUE DE ERROR (mostrar solo cuando falle la carga en React) -->
+            <div
+                    id="error-panel"
+                    class="hidden px-4 pt-3"
+            >
+                <div class="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs sm:text-sm text-red-700 flex gap-2">
+                    <span class="mt-0.5">⚠️</span>
+                    <div>
+                        <p class="font-semibold">No se han podido cargar los alumnos.</p>
+                        <p class="mt-0.5 text-red-700/90">
+                            Inténtalo de nuevo más tarde o revisa la conexión con el servidor.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN BLOQUE DE ERROR -->
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-sm">
+                    <thead class="bg-slate-50">
+                    <tr>
+                        <th
+                                scope="col"
+                                class="px-4 py-2 text-left font-semibold text-slate-600"
+                        >
+                            Alumno
+                        </th>
+                        <th
+                                scope="col"
+                                class="px-4 py-2 text-left font-semibold text-slate-600"
+                        >
+                            Grupo
+                        </th>
+                        <th
+                                scope="col"
+                                class="px-4 py-2 text-left font-semibold text-slate-600"
+                        >
+                            Año nacimiento
+                        </th>
+                        <th
+                                scope="col"
+                                class="px-4 py-2 text-left font-semibold text-slate-600"
+                        >
+                            Estado
+                        </th>
+                        <th
+                                scope="col"
+                                class="px-4 py-2 text-left font-semibold text-slate-600"
+                        >
+                            Acciones
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                    <!-- Fila de ejemplo 1 -->
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <a
+                                    href="detalle-alumno.html"
+                                    class="text-sky-600 hover:underline"
+                            >
+                                Lucía García López
+                            </a>
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap">DAM1</td>
+                        <td class="px-4 py-2 whitespace-nowrap">2006</td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700 border border-emerald-100">
+                                Activado
+                            </span>
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <button
+                                    type="button"
+                                    class="inline-flex items-center rounded-lg border border-red-200 px-3 py-1 text-xs font-medium text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                                    onclick=""
+                            >
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Fila de ejemplo 2 -->
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <a
+                                    href="detalle-alumno.html"
+                                    class="text-sky-600 hover:underline"
+                            >
+                                Mario Santos Pérez
+                            </a>
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap">DAM1</td>
+                        <td class="px-4 py-2 whitespace-nowrap">2005</td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700 border border-emerald-100">
+                                Activado
+                            </span>
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <button
+                                    type="button"
+                                    class="inline-flex items-center rounded-lg border border-red-200 px-3 py-1 text-xs font-medium text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                                    onclick="eliminarFila(this)"
+                            >
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Fila de ejemplo 3 -->
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <a
+                                    href="detalle-alumno.html"
+                                    class="text-sky-600 hover:underline"
+                            >
+                                Ana Ruiz Martín
+                            </a>
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap">DAM2</td>
+                        <td class="px-4 py-2 whitespace-nowrap">2004</td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700 border border-emerald-100">
+                                Activado
+                            </span>
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <button
+                                    type="button"
+                                    class="inline-flex items-center rounded-lg border border-red-200 px-3 py-1 text-xs font-medium text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                                    onclick="eliminarFila(this)"
+                            >
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Fila de ejemplo 4 (Desactivado para variar) -->
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <a
+                                    href="detalle-alumno.html"
+                                    class="text-sky-600 hover:underline"
+                            >
+                                Javier López Díaz
+                            </a>
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap">DAM2</td>
+                        <td class="px-4 py-2 whitespace-nowrap">2003</td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <span class="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600 border border-slate-200">
+                                Desactivado
+                            </span>
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <button
+                                    type="button"
+                                    class="inline-flex items-center rounded-lg border border-red-200 px-3 py-1 text-xs font-medium text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                                    onclick="eliminarFila(this)"
+                            >
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Fila de ejemplo 5 -->
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <a
+                                    href="detalle-alumno.html"
+                                    class="text-sky-600 hover:underline"
+                            >
+                                Noa Molina Torres
+                            </a>
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap">SMR1</td>
+                        <td class="px-4 py-2 whitespace-nowrap">2007</td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700 border border-emerald-100">
+                                Activado
+                            </span>
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <button
+                                    type="button"
+                                    class="inline-flex items-center rounded-lg border border-red-200 px-3 py-1 text-xs font-medium text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                                    onclick="eliminarFila(this)"
+                            >
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Fila de ejemplo 6 -->
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <a
+                                    href="detalle-alumno.html"
+                                    class="text-sky-600 hover:underline"
+                            >
+                                Leo Navarro Gil
+                            </a>
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap">SMR1</td>
+                        <td class="px-4 py-2 whitespace-nowrap">2007</td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <span class="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600 border border-slate-200">
+                                Desactivado
+                            </span>
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <button
+                                    type="button"
+                                    class="inline-flex items-center rounded-lg border border-red-200 px-3 py-1 text-xs font-medium text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                                    onclick="eliminarFila(this)"
+                            >
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</main>
+
+
+<footer class="bg-white border-t border-slate-200">
+    <div
+            class="max-w-5xl mx-auto px-4 py-3 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between"
+    >
+        <p class="text-xs text-slate-500">
+            &copy; 2025 Departamento de Informática · Centro de FP
+        </p>
+        <p class="text-xs text-slate-400">
+            Página de ejemplo para el módulo de Desarrollo de Interfaces.
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>

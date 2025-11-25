@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Detalle de alumno</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-100 text-slate-800 flex flex-col">
+
+<header class="bg-white border-b border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <div
+                    class="h-8 w-8 rounded-lg bg-sky-500 flex items-center justify-center text-white text-sm font-semibold"
+            >
+                DI
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-slate-900">
+                    Panel de alumnado
+                </p>
+                <p class="text-xs text-slate-500">
+                    Ciclos Formativos · Informática
+                </p>
+            </div>
+        </div>
+        <p class="text-xs text-slate-500">
+            Módulo: Desarrollo de Interfaces
+        </p>
+    </div>
+</header>
+
+
+<main class="flex-1">
+    <div class="max-w-5xl mx-auto px-4 py-8">
+        <section class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <h1 class="text-2xl font-semibold tracking-tight text-slate-900">
+                    Detalle del alumno
+                </h1>
+                <p class="text-sm text-slate-500 mt-1">
+                    Información detallada del alumno seleccionado en el listado.
+                </p>
+            </div>
+
+            <div class="flex justify-start sm:justify-end">
+                <a
+                        href="listado-alumnos.html"
+                        class="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-1"
+                >
+                    ← Volver al listado
+                </a>
+            </div>
+        </section>
+
+
+        <section class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+
+            <div class="border-b border-slate-200 px-4 py-3 flex items-center justify-between">
+                <div>
+                    <h2 class="text-lg font-semibold text-slate-900">
+                        Lucía García López
+                    </h2>
+                    <p class="text-xs text-slate-500">
+                        Alumna de Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Multiplataforma.
+                    </p>
+                </div>
+                <span
+                        id="estado-badge"
+                        class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 border border-emerald-100"
+                >
+                    Activado
+                </span>
+            </div>
+
+            <!-- BLOQUE DE ERROR (mostrar solo si falla la carga en React) -->
+            <div id="error-panel-detalle" class="hidden px-4 pt-3">
+                <div class="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs sm:text-sm text-red-700 flex gap-2">
+                    <span class="mt-0.5">⚠️</span>
+                    <div>
+                        <p class="font-semibold">No se ha podido cargar la información del alumno.</p>
+                        <p class="mt-0.5 text-red-700/90">
+                            Inténtalo de nuevo más tarde o vuelve al listado para seleccionar otro alumno.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN BLOQUE DE ERROR -->
+
+
+            <div class="px-4 py-4 space-y-6">
+
+                <div>
+                    <h3 class="text-sm font-semibold text-slate-800 mb-2">
+                        Datos académicos
+                    </h3>
+                    <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
+                        <div>
+                            <dt class="text-xs uppercase tracking-wide text-slate-500">
+                                Nombre completo
+                            </dt>
+                            <dd class="mt-0.5 text-slate-800">
+                                Lucía García López
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs uppercase tracking-wide text-slate-500">
+                                Grupo
+                            </dt>
+                            <dd class="mt-0.5 text-slate-800">
+                                DAM1
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs uppercase tracking-wide text-slate-500">
+                                Año de nacimiento
+                            </dt>
+                            <dd class="mt-0.5 text-slate-800">
+                                2006
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs uppercase tracking-wide text-slate-500">
+                                Estado
+                            </dt>
+                            <dd class="mt-0.5 text-slate-800">
+                                <span id="estado-texto">Activado</span>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+
+
+                <div>
+                    <h3 class="text-sm font-semibold text-slate-800 mb-2">
+                        Información de contacto
+                    </h3>
+                    <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
+                        <div>
+                            <dt class="text-xs uppercase tracking-wide text-slate-500">
+                                Correo electrónico
+                            </dt>
+                            <dd class="mt-0.5 text-slate-800">
+                                lucia.garcia@example.com
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs uppercase tracking-wide text-slate-500">
+                                Teléfono
+                            </dt>
+                            <dd class="mt-0.5 text-slate-800">
+                                600 123 456
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+
+
+                <div class="pt-2 border-t border-slate-100">
+                    <h3 class="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">
+                        Cambiar estado
+                    </h3>
+                    <button
+                            type="button"
+                            id="toggle-estado-btn"
+                            onclick=""
+                            class="inline-flex justify-center items-center rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-1"
+                    >
+                        Desactivar
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="bg-white border-t border-slate-200">
+    <div
+            class="max-w-5xl mx-auto px-4 py-3 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between"
+    >
+        <p class="text-xs text-slate-500">
+            &copy; 2025 Departamento de Informática · Centro de FP
+        </p>
+        <p class="text-xs text-slate-400">
+            Página de ejemplo para el módulo de Desarrollo de Interfaces.
+        </p>
+    </div>
+</footer>
+
+
+</body>
+</html>
