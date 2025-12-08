@@ -186,11 +186,10 @@ export default function ListadoAlumnos () {
 
                                 <tr className="hover:bg-slate-50">
                                     <td className="px-4 py-2 whitespace-nowrap">
-                                        <Link to="detalleAlumno/:id"
-                                                className="text-sky-600 hover:underline"
-                                        >
+                                        <Link to={`/detalleAlumno/${alumno.id}`} className="text-sky-600 hover:underline">
                                             {alumno.nombre} {alumno.apellidos}
                                         </Link>
+
                                     </td>
                                     <td className="px-4 py-2 whitespace-nowrap">{alumno.grupo}</td>
                                     <td className="px-4 py-2 whitespace-nowrap">{alumno.anoNacimiento}</td>
