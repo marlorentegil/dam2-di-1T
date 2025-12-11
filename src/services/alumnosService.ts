@@ -16,18 +16,6 @@ export async function listarAlumnos(): Promise<APIResult<Alumnos[]>> {
     return {ok: false, error: error};
 }
 
-export async function detalleAlumno(id: number): Promise<APIResult<Alumnos>> {
-    const response = await fetch(`${baseURL}/api/alumnos/${id}`, {
-        method: 'GET',
-    });
-    if (response.ok) {
-        const alumno: Alumnos = await response.json();
-        return {ok: true, data: alumno};
-    }
-    const error: APIError = await response.json();
-    return {ok: false, error: error};
-}
-
 export async function eliminarAlumno(id: number): Promise<APIResult<void>> {
     const response = await fetch(`${baseURL}/api/alumnos/${id}`, {
         method: 'DELETE',
@@ -39,19 +27,21 @@ export async function eliminarAlumno(id: number): Promise<APIResult<void>> {
     return {ok: false, error: error};
 }
 
-// export async function crearAlumno(request: Alumnos): Promise<APIResult<Alumnos>> {
-//     const response = await fetch(`${baseURL}/api/alumnos`, {
-//         method: 'POST',
-//         body: JSON.stringify(request),
-//         headers: {
-//             'Content-type': 'application/json',
-//             'Accept': 'application/json',
-//         },
-//     });
-//     if (response.ok) {
-//         const alumno: Alumnos = await response.json();
-//         return {ok: true, data: alumno};
-//     }
-//     const error: APIError = await response.json();
-//     return {ok: false, error: error};
-// }
+
+
+export async function crearAlumno(request: Alumnos): Promise<APIResult<Alumnos>> {
+    const response = await fetch(`${baseURL}/api/alumnos`, {
+        method: 'POST',
+        body: JSON.stringify(request),
+        headers: {
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+        },
+    });
+    if (response.ok) {
+        const alumno: Alumnos = await response.json();
+        return {ok: true, data: alumno};
+    }
+    const error: APIError = await response.json();
+    return {ok: false, error: error};
+}

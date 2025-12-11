@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { listarAlumnos } from "@/services/alumnosService";
+import { eliminarAlumno, listarAlumnos } from "@/services/alumnosService";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -46,15 +46,27 @@ export default function ListadoAlumnos () {
 
     const [searchText, setSearchText] = useState<string>("");
 
-    const filteredAlumnos = alumnos?.filter((alumno) => {
-        return alumno.nombre.toLowerCase().includes(searchText.toLowerCase())
-    })
+
+    const handleEliminarAlumno = async (id: number) => {
+        try {
+            const response = await eliminarAlumno(id);
+            if (response.ok) {
+                setAlumnos(alumnos.filter(alumno => alumno.id !== id));
+            } else {
+                console.log(response.error);
+            }
+        } catch (error) {
+            console.log("Error desconocido");
+        }
+    }
+
+
 
 
     const navigate = useNavigate();
 
-    const handleDetalleAlumno = (id: number) => {
-        navigate(`/detalleAlumno/${id}`);
+    const handleCrearAlumno = () => {
+        navigate(`/crearAlumno/`);
     }
 
 
@@ -88,6 +100,7 @@ export default function ListadoAlumnos () {
                     </div>
 
 
+
                     <div className="w-full sm:w-72">
                         <label
                                 htmlFor="order-select"
@@ -108,6 +121,16 @@ export default function ListadoAlumnos () {
                             <option value="estado-asc">Estado (Activado → Desactivado)</option>
                             <option value="estado-desc">Estado (Desactivado → Activado)</option>
                         </select>
+
+
+                        <button
+                            type="button"
+                            className="inline-flex items-center rounded-lg border border-blue-200 px-3 py-1 text-xs font-medium text-blue-600 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                            onClick={() => handleCrearAlumno()}
+                        >
+                            Crear nuevo alumno
+                        </button>
+
                     </div>
                 </section>
 
@@ -120,7 +143,7 @@ export default function ListadoAlumnos () {
                             Alumnos matriculados
                         </h2>
                         <span className="text-xs text-slate-500">
-                            Total: <span id="total-alumnos">{filteredAlumnos.length}</span>
+                            Total: <span id="total-alumnos">{alumnos.length}</span>
                         </span>
                     </div>
 
@@ -182,13 +205,13 @@ export default function ListadoAlumnos () {
                             {/* <!-- Fila de ejemplo 1 --> */}
                             
                             {/* Hacer un map de los alumnos aquí */}
-                            {filteredAlumnos.map((alumno) =>
+                            {alumnos.map((alumno) =>
 
                                 <tr className="hover:bg-slate-50">
                                     <td className="px-4 py-2 whitespace-nowrap">
-                                        <Link to={`/detalleAlumno/${alumno.id}`} className="text-sky-600 hover:underline">
-                                            {alumno.nombre} {alumno.apellidos}
-                                        </Link>
+                                         
+                                        {alumno.nombre} {alumno.apellidos}
+                                        
 
                                     </td>
                                     <td className="px-4 py-2 whitespace-nowrap">{alumno.grupo}</td>
@@ -202,7 +225,7 @@ export default function ListadoAlumnos () {
                                         <button
                                                 type="button"
                                                 className="inline-flex items-center rounded-lg border border-red-200 px-3 py-1 text-xs font-medium text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
-                                                // onClick=
+                                                onClick= {() => handleEliminarAlumno(alumno.id)}
                                         >
                                             Eliminar
                                         </button>
