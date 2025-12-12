@@ -8,7 +8,7 @@ type AlumnosForm = {
     nombre: string;
     apellidos: string;
     grupo: string;
-    anoNacimiento: number;
+    anioNacimiento: number;
     estado: 'Activado' | 'Desactivado';
 }
 
@@ -16,7 +16,7 @@ const defaultAlumnosForm: AlumnosForm = {
     nombre: "",
     apellidos: "",
     grupo: "",
-    anoNacimiento: new Date().getFullYear(),
+    anioNacimiento: new Date().getFullYear(),
     estado: 'Activado'
 }
 
@@ -34,7 +34,7 @@ export default function CrearAlumno() {
 
         setFormData(prev => ({
             ...prev,
-            [name]: name === "anoNacimiento" ? Number(value) : value
+            [name]: name === "anioNacimiento" ? Number(value) : value
         }));
     }
 
@@ -63,10 +63,11 @@ export default function CrearAlumno() {
     const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            
+
             const response = await crearAlumno(formData);
             if (response.ok) {
                 const alumno: Alumnos = response.data;
+                navigate("/")
             } else {
                 alert(response.error ?? 'Error desconocido');
             }
@@ -109,11 +110,11 @@ export default function CrearAlumno() {
                 />
 
                 <input
-                    name="anoNacimiento"
+                    name="anioNacimiento"
                     type="number"
                     placeholder="Año de nacimiento"
                     className="w-full border p-2 rounded"
-                    value={formData.anoNacimiento}
+                    value={formData.anioNacimiento}
                     onChange={handleChange}
                 />
 

@@ -1,12 +1,12 @@
 export type Alumnos = {
-    
+
     id: number;
     nombre: string;
     apellidos: string;
     grupo: string;
-    anoNacimiento: number;
+    anioNacimiento: number;
     estado: 'Activado' | 'Desactivado';
-    
+
 }
 
 export type AlumnoCrear = {
@@ -14,7 +14,7 @@ export type AlumnoCrear = {
     nombre: string;
     apellidos: string;
     grupo: string;
-    anoNacimiento: number;
+    anioNacimiento: number;
     estado: string;
 };
 
