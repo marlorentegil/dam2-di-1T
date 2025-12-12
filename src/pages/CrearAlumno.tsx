@@ -1,5 +1,5 @@
 import { crearAlumno } from "@/services/alumnosService";
-import { useState, useEffect, type ChangeEvent } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Alumnos, AlumnoCrear } from "@/types/alumnos";
 
@@ -39,10 +39,32 @@ export default function CrearAlumno() {
     }
 
 
+    const handleChangeNombre = (e: ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+
+        setFormData(prev => ({
+            ...prev,
+            nombre: value
+        }));
+    }
+
+    const handleChangeApellidos = (e: ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+
+        setFormData(prev => ({
+            ...prev,
+            apellidos: value
+        }));
+    }
+
+
+
+
     const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await crearAlumno(alumno); 
+            
+            const response = await crearAlumno(formData);
             if (response.ok) {
                 const alumno: Alumnos = response.data;
             } else {
@@ -65,7 +87,7 @@ export default function CrearAlumno() {
                     placeholder="Nombre"
                     className="w-full border p-2 rounded"
                     value={formData.nombre}
-                    onChange={handleChange}
+                    onChange={handleChangeNombre}
                 />
 
                 <input
@@ -74,7 +96,7 @@ export default function CrearAlumno() {
                     placeholder="Apellidos"
                     className="w-full border p-2 rounded"
                     value={formData.apellidos}
-                    onChange={handleChange}
+                    onChange={handleChangeApellidos}
                 />
 
                 <input
@@ -123,3 +145,5 @@ export default function CrearAlumno() {
         </div>
     );
 }
+
+

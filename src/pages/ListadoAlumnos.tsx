@@ -2,7 +2,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { eliminarAlumno, listarAlumnos } from "@/services/alumnosService";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function ListadoAlumnos () {
     
@@ -44,7 +44,7 @@ export default function ListadoAlumnos () {
     }, []);
 
 
-    const [searchText, setSearchText] = useState<string>("");
+
 
 
     const handleEliminarAlumno = async (id: number) => {
@@ -59,8 +59,6 @@ export default function ListadoAlumnos () {
             console.log("Error desconocido");
         }
     }
-
-
 
 
     const navigate = useNavigate();

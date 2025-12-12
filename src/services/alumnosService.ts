@@ -1,5 +1,5 @@
 import type {APIError, APIResult} from "@/types/util";
-import type {Alumnos} from "@/types/alumnos.ts";
+import type {AlumnoCrear, Alumnos} from "@/types/alumnos.ts";
 
 const baseURL: string = "http://localhost:3000";
 
@@ -29,7 +29,7 @@ export async function eliminarAlumno(id: number): Promise<APIResult<void>> {
 
 
 
-export async function crearAlumno(request: Alumnos): Promise<APIResult<Alumnos>> {
+export async function crearAlumno(request: AlumnoCrear): Promise<APIResult<Alumnos>> {
     const response = await fetch(`${baseURL}/api/alumnos`, {
         method: 'POST',
         body: JSON.stringify(request),
